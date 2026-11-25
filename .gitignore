@@ -1,0 +1,14 @@
+# environments
+env/
+__pycache__/
+*.pyc
+# MIRS data (downloaded from katzfuss-group/vecchiaFilter, see README)
+data/
+# data, results, figures and logs written by the run scripts
+simulation_*/
+filtering_*/
+results_sparsity/
+large_n/
+application_mirs/
+figures/
+logs/
