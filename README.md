@@ -32,7 +32,7 @@ Two shell scripts run the whole workflow, from the data to the final table and f
 
 A filter for a high-dimensional state-space model needs a sparse factor of the posterior
 **covariance** matrix for its forecast step, but a nearest-neighbor Vecchia approximation gives a
-sparse factor of the **precision** matrix. NNV turns the one into the other in three stages:
+sparse factor of the **precision** matrix. NNV turns the latter into the former in three stages:
 
 1. **Stage 1:** a forward-KL-optimal Vecchia factor $\mathbf{U}$ of the prior precision on the
    nearest-neighbor pattern $\mathbf{S}_\rho$;
@@ -48,7 +48,7 @@ global linear solve. Non-Gaussian data are handled by a Laplace approximation.
 
 ## Highlights
 
-### Close to the exact posterior at every sparsity level
+### Closer to the exact posterior than HV and low-rank at every sparsity level
 
 <p align="center">
   <img src="assets/sparsity-spatial.png" width="100%"
