@@ -37,7 +37,9 @@ sparse factor of the **precision** matrix. NNV turns the latter into the former 
 1. **Stage 1:** a forward-KL-optimal Vecchia factor $\mathbf{U}$ of the prior precision on the
    nearest-neighbor pattern $\mathbf{S}_\rho$;
 2. **Stage 2:** incomplete Cholesky (IC0) of the sparse posterior precision
-   $\mathbf{U}\mathbf{U}^\top + \mathbf{D}$, giving $\mathbf{V}$;
+   $\mathbf{U}\mathbf{U}^\top + \mathbf{D}^{-1}$, giving $\mathbf{V}$, on the same pattern
+   $\mathbf{S}_\rho$ in the simulations and on the larger pattern of $\mathbf{U}\mathbf{U}^\top$
+   in the application;
 3. **Stage 3:** a sparse approximate inverse $\widehat{\mathbf{L}} \approx \mathbf{V}^{-\top}$
    on the support pattern $\mathbf{S}^L_\rho$, row by row, in closed form and in parallel.
 
@@ -159,8 +161,8 @@ All simulations use an exponential covariance with range 0.15 on regular grids o
 four data models: Gaussian, Bernoulli–logistic, Poisson and gamma. NNV, HV and low-rank (LR) run
 in the same Numba code; HV and LR take their orderings and conditioning sets from GPvecchia.
 The methods are matched on the average number of nonzeros per row of the posterior covariance
-factor. To save time, the simulations are run on 10 data sets per data model; the conclusions
-stay the same.
+factor. Stage 2 of NNV uses the same sparsity pattern $\mathbf{S}_\rho$ as Stage 1. To save
+time, the simulations are run on 10 data sets per data model; the conclusions stay the same.
 
 1. **Methodology figures.** Figure 2 (`patterns.R`) and Figure 3
    (`basis_functions_comparison.py`, Matérn smoothness 1.5).
@@ -192,9 +194,10 @@ stay the same.
    each time point are held out.
 2. **GPvecchia patterns** of HV (requested m = 393) and LR (N = 307)
    (`export_patterns_sweep.R`).
-3. **Filters** (`mirs_validate7.py`): NNV (ρ = 5, Stage 2 on the pattern of
-   **U**·**U**ᵀ), HV and LR, all at about 300 nonzeros per row. Model: linear trend, exponential
-   initial and innovation covariances with variances 54 and 10 and range 0.2, noise variance
+3. **Filters** (`mirs_validate7.py`): NNV (ρ = 5, Stage 2 on the larger pattern of
+   $\mathbf{U}\mathbf{U}^\top$ instead of $\mathbf{S}_\rho$), HV and LR, all at about 300
+   nonzeros per row. Model: linear trend, exponential initial and innovation covariances with
+   variances 54 and 10 and range 0.2, noise variance
    0.0697, diffusion 4.37 × 10⁻⁸, advection 1.60 × 10⁻⁴. Writes the held-out scores and the
    filtering means and standard deviations.
 4. **Exact Kalman filter** with dense matrices, updated in place (`mirs_exact_full.py`,

@@ -100,7 +100,7 @@ floating-point sums can change scores in the last digits.
 -------------------------------
 
   To save time, the simulations are run on 10 data sets per data model; the conclusions stay
-  the same.
+  the same. Stage 2 of NNV uses the same sparsity pattern S_rho as Stage 1.
 
   1. Figure 2 (src/R/patterns.R) and Figure 3 (src/python/basis_functions_comparison.py).
   2. Simulated data at n = 1,600 (40 x 40 grid), 10 data sets per data model (Gaussian,
@@ -126,7 +126,8 @@ floating-point sums can change scores in the last digits.
   1. Prepares the MIRS data and the hold-out split (src/python/mirs_prepare.py).
   2. HV and LR orderings and conditioning sets from GPvecchia (src/R/export_patterns_sweep.R).
   3. NNV, HV and LR filters at about 300 nonzeros per row, with held-out scores and filtering
-     means and standard deviations (src/python/mirs_validate7.py).
+     means and standard deviations (src/python/mirs_validate7.py). Unlike the simulations,
+     Stage 2 of NNV uses the larger pattern of U U^T instead of S_rho.
   4. Exact Kalman filter with dense matrices (src/python/mirs_exact_full.py).
   5. Table 1, Figures 7 and S8 (src/python/mirs_exact_plot.py); Figures 8 and S7
      (src/python/mirs_maps.py).
