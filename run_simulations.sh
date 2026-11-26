@@ -21,10 +21,10 @@
 #
 # Outputs (see README.md for the full list):
 #   figures/      every figure of Sections 2-3 and S6
-#   simulation_<model>/, filtering_<model>/   simulated data at n = 1,600
-#   results_sparsity/   n = 1,600 results (spatial.csv, filter.csv)
+#   simulation_<model>/, filtering_<model>/   simulated data at n = 1,600 (10 data sets)
+#   results_sparsity/   n = 1,600 results on 10 data sets (spatial.csv, filter.csv)
 #   large_n/            large-n results (spatial80_side*.csv, filter80_side300.csv,
-#                       gpvecchia80_side*.csv), patterns and data
+#                       gpvecchia80_side*.csv) on 10 data sets, patterns and data
 # Per-stage logs are written to logs/.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
@@ -73,7 +73,8 @@ for MODEL in $MODELS; do
 done
 
 # ---------------------------------------------------------------------------
-# 3. Sections 3.2-3.3: NNV, HV and LR at five matched sparsity levels (n = 1,600)
+# 3. Sections 3.2-3.3: NNV, HV and LR at five matched sparsity levels (n = 1,600),
+#    10 data sets per data model
 # ---------------------------------------------------------------------------
 # HV and LR orderings and conditioning sets from GPvecchia; levels 2-6 of LEVELS in
 # src/python/sim_sparsity.py (about 40, 60, 80, 100 and 120 nonzeros per row)
@@ -87,7 +88,8 @@ mkdir -p results_sparsity
 for STUDY in spatial filter; do
   if todo results_sparsity/$STUDY.csv; then
     step "n = 1,600: $STUDY study (exact, NNV, HV, LR)"
-    run logs/sparsity_$STUDY.log $P $PY/sim_sparsity.py --study=$STUDY --levels=2,3,4,5,6
+    run logs/sparsity_$STUDY.log $P $PY/sim_sparsity.py --study=$STUDY --levels=2,3,4,5,6 \
+      --n-datasets=10
   fi
 done
 step "Figures 4-5, S2-S3, S5"
@@ -125,7 +127,7 @@ for cfg in "${CONFIGS[@]}"; do
   if todo large_n/spatial80_side$1.csv; then
     step "large n, spatial: n = $(( $1 * $1 ))"
     run logs/large_n_spatial_side$1.log $P $PY/large_n_spatial.py --side=$1 --rhos=$2 \
-      --hv-sizes=$3 --lr-sizes=$4 --out-name=spatial80_side$1.csv
+      --hv-sizes=$3 --lr-sizes=$4 --n-datasets=10 --out-name=spatial80_side$1.csv
   fi
 done
 # filtering on the 300 x 300 grid, 10 data sets, T = 10

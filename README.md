@@ -157,9 +157,10 @@ All figures are written to `figures/`.
 
 All simulations use an exponential covariance with range 0.15 on regular grids of [0, 1]², and
 four data models: Gaussian, Bernoulli–logistic, Poisson and gamma. NNV, HV and low-rank (LR) run
-in the same Numba code; HV and LR take their orderings and conditioning sets from GPvecchia. The
-methods are matched on the average number of nonzeros per row of the posterior covariance
-factor.
+in the same Numba code; HV and LR take their orderings and conditioning sets from GPvecchia.
+The methods are matched on the average number of nonzeros per row of the posterior covariance
+factor. To save time, the simulations are run on 10 data sets per data model; the conclusions
+stay the same.
 
 1. **Methodology figures.** Figure 2 (`patterns.R`) and Figure 3
    (`basis_functions_comparison.py`, Matérn smoothness 1.5).
@@ -169,8 +170,8 @@ factor.
      (`generate_advdiff_datasets.R`).
 3. **Matched sparsity levels** (about 40, 60, 80, 100 and 120 nonzeros per row):
    GPvecchia patterns (`export_patterns_sweep.R`), then the exact posterior and Kalman filter,
-   NNV, NNV + IC0, Stage 1 only, HV and LR (`sim_sparsity.py`). Figures 4–5, S2–S3, S5
-   (`plot_sparsity.py`).
+   NNV, NNV + IC0, Stage 1 only, HV and LR on all 10 data sets (`sim_sparsity.py`).
+   Figures 4–5, S2–S3, S5 (`plot_sparsity.py`).
 4. **Boundary maps.** Exact and HV posterior means in GPvecchia (`export_spatial_fields.R`) and
    NNV (`plot_spatial_maps.py`) for one logistic and one Poisson data set. Figures 1 and S1.
 5. **Large n** at about 80 nonzeros per row:

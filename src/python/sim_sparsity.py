@@ -1,8 +1,8 @@
 """
 Sections 3.2-3.3 at n = 1,600, with all methods matched on the average number
 of nonzeros per row of the posterior covariance factor L (instead of the
-conditioning-set size), at several sparsity levels. Uses the simulated data
-sets of run_spatial_simulation.sh and run_filtering_simulation.sh and the
+conditioning-set size), at several sparsity levels. Uses the 10 simulated
+data sets per data model written by run_simulations.sh and the
 implementation of large_n.py for NN-triple (NNV), HV and LR; the exact
 (Laplace) posterior and Kalman filter are computed with dense matrices.
 

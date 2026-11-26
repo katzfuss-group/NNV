@@ -99,21 +99,25 @@ floating-point sums can change scores in the last digits.
 5. What run_simulations.sh does
 -------------------------------
 
+  To save time, the simulations are run on 10 data sets per data model; the conclusions stay
+  the same.
+
   1. Figure 2 (src/R/patterns.R) and Figure 3 (src/python/basis_functions_comparison.py).
   2. Simulated data at n = 1,600 (40 x 40 grid), 10 data sets per data model (Gaussian,
      Bernoulli-logistic, Poisson, gamma): spatial-only data and advection-diffusion filtering
      data with T = 20 time points.
   3. HV and low-rank (LR) orderings and conditioning sets from GPvecchia
      (src/R/export_patterns_sweep.R); exact posterior and Kalman filter, NNV, its stages, HV
-     and LR at five matched sparsity levels (src/python/sim_sparsity.py); Figures 4, 5, S2, S3
-     and S5 (src/python/plot_sparsity.py).
+     and LR at five matched sparsity levels on all 10 data sets (src/python/sim_sparsity.py);
+     Figures 4, 5, S2, S3 and S5 (src/python/plot_sparsity.py).
   4. Exact and HV posterior means in GPvecchia (src/R/export_spatial_fields.R) and NNV
      posterior means for one logistic and one Poisson data set; Figures 1 and S1
      (src/python/plot_spatial_maps.py).
   5. Large n (grids of 100 x 100, 200 x 200 and 300 x 300) at about 80 nonzeros per row:
-     spatial-only (src/python/large_n_spatial.py), filtering with n = 90,000
-     (src/python/large_n_filter.py), HV and LR in GPvecchia for the time comparison
-     (src/R/large_n_gpvecchia.R); Figures 6, S4 and S6 (src/python/plot_large_n80.py).
+     spatial-only with 10 data sets per data model (src/python/large_n_spatial.py), filtering
+     with n = 90,000, 10 data sets and T = 10 (src/python/large_n_filter.py), HV and LR in
+     GPvecchia on the same data for the time comparison (src/R/large_n_gpvecchia.R);
+     Figures 6, S4 and S6 (src/python/plot_large_n80.py).
 
 
 6. What run_application.sh does
